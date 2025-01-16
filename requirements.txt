@@ -3,8 +3,10 @@ python-decouple
 requests
 Celery
 Redis
-django-celery-beat
+django-celery-beat 
 django-celery-results
 openai
-ollama
 jupyter
+llama-index
+llama-index-vector-stores-upstash
+upstash-vector

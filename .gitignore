@@ -2,3 +2,7 @@
 __pycache__
 __pycache__/*
 venv
+celerybeat-schedule.db
+celerybeat.pid
+db.sqlite3
+*.pyc

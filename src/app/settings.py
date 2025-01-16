@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_beat',
+    'django_celery_results',
+    'bot',
 ]
 
 MIDDLEWARE = [
@@ -121,3 +125,22 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Celery settings
+# celery -A app worker --beat -l info
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_BROKER_URL = config.env('CELERY_BROKER_URL', default=None, cast=str)
+CELERY_BEAT_SCHEDULE = 'celery.beat:PersistentScheduler'
+
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+
+# redis_backend_use_ssl
+CELERY_REDIS_BACKEND_USE_SSL = True
+
+# broker_use_ssl
+CELERY_BROKER_USE_SSL = True
+
+
+# CELERY_BROKER_TRANSPORT_OPTIONS = {
+#     'visibility_timeout': 86400  # Set the visibility timeout to 1 Day
+# }
